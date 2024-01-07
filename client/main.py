@@ -1,6 +1,8 @@
 import socket
 from zeroconf import Zeroconf, ServiceBrowser
 
+from common.constants import ZEROCONF_SERVICE_TYPE
+
 
 class ServerListener:
     def remove_service(self, zeroconf, type, name):
@@ -23,7 +25,7 @@ def discover_servers():
     listener = ServerListener()
 
     # Browse for services of a specific type (same service type as used for advertising)
-    browser = ServiceBrowser(zeroconf, "_meganopoly._tcp.local.", listener)
+    browser = ServiceBrowser(zeroconf, ZEROCONF_SERVICE_TYPE, listener)
 
     try:
         input("Searching for servers... Press Enter to stop.\n")
@@ -31,5 +33,5 @@ def discover_servers():
         zeroconf.close()
 
 
-if __name__ == "__main__":
+def main():
     discover_servers()

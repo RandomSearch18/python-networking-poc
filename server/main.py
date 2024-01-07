@@ -1,6 +1,8 @@
 import socket
 from zeroconf import ServiceInfo, Zeroconf
 
+from common.constants import SERVER_PORT, ZEROCONF_SERVICE_TYPE
+
 
 def advertise_service():
     # Get the local IP address
@@ -8,8 +10,8 @@ def advertise_service():
 
     # Set up service information
     service_name = "MeganopolyServer"
-    service_type = "_meganopoly._tcp.local."  # Service type, you can define your own
-    port = 7777  # Inspired by Terraria's server port
+    service_type = ZEROCONF_SERVICE_TYPE
+    port = SERVER_PORT  # Inspired by Terraria's server port
 
     # Create a Zeroconf object
     zeroconf = Zeroconf()
@@ -34,5 +36,5 @@ def advertise_service():
         zeroconf.close()
 
 
-if __name__ == "__main__":
+def main():
     advertise_service()
