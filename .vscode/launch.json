@@ -8,7 +8,10 @@
             "name": "Run server",
             "type": "python",
             "request": "launch",
-            "program": "server/main.py",
+            "program": "main.py",
+            "args": [
+                "server"
+            ],
             "console": "integratedTerminal",
             "justMyCode": true
         },
@@ -16,7 +19,10 @@
             "name": "Run client",
             "type": "python",
             "request": "launch",
-            "program": "client/main.py",
+            "program": "main.py",
+            "args": [
+                "client"
+            ],
             "console": "integratedTerminal",
             "justMyCode": true
         }
