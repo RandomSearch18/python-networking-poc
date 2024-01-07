@@ -1,20 +1,18 @@
 import socket
-from zeroconf import Zeroconf, ServiceBrowser
+from zeroconf import ServiceListener, Zeroconf, ServiceBrowser
 
 from common.constants import ZEROCONF_SERVICE_TYPE
 
 
-class ServerListener:
+class ServerListener(ServiceListener):
     def remove_service(self, zeroconf, type, name):
-        print(f"Service {name} removed")
+        print(f"Meganopoly server is gone! ({name})")
 
-    def add_service(self, zeroconf, type, name):
+    def add_service(self, zeroconf: Zeroconf, type: str, name: str):
         info = zeroconf.get_service_info(type, name)
         if info:
-            print(f"Discovered service: {name}")
-            print(f"Server address: {socket.inet_ntoa(info.addresses[0])}")
-            print(f"Server port: {info.port}")
-            # You can add the discovered servers to a list or display them to the user
+            print(f"\nFound Meganopoly server! ({name})")
+            print(f"Server address: {socket.inet_ntoa(info.addresses[0])} (port {info.port})")
 
     def update_service(self, zeroconf, type, name):
         pass
@@ -28,7 +26,7 @@ def discover_servers():
     browser = ServiceBrowser(zeroconf, ZEROCONF_SERVICE_TYPE, listener)
 
     try:
-        input("Searching for servers... Press Enter to stop.\n")
+        input("Searching for servers...\n")
     finally:
         zeroconf.close()
 

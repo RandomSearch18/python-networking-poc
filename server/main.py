@@ -6,7 +6,7 @@ from common.constants import SERVER_PORT, ZEROCONF_SERVICE_TYPE
 
 def advertise_service():
     # Get the local IP address
-    ip_address = socket.gethostbyname(socket.gethostname())
+    our_ip_address = socket.gethostbyname(socket.gethostname())
 
     # Set up service information
     service_name = "MeganopolyServer"
@@ -20,7 +20,7 @@ def advertise_service():
     service_info = ServiceInfo(
         service_type,
         f"{service_name}.{service_type}",
-        addresses=[socket.inet_aton(ip_address)],
+        addresses=[socket.inet_aton(our_ip_address)],
         port=port,
         properties={},
     )
@@ -30,7 +30,7 @@ def advertise_service():
 
     # Keep the server running
     try:
-        input("Server advertising... Press Enter to stop.")
+        input(f"Advertising server on {our_ip_address}, port {port}")
     finally:
         zeroconf.unregister_service(service_info)
         zeroconf.close()
